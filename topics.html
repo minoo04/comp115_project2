@@ -1,0 +1,54 @@
+{% extends 'studify/base.html' %}
+
+{% block content %}
+
+<p>Topics:</p>
+
+<ul>
+    {% for topic in topics %}
+        <li class="topic-item">
+            <p class="topic-name">{{ topic.title }}</p>
+            <ul class="flashcards" style="display: none;">
+                {% for flashcard in topic.flashcard_set.all %}
+                    <li>
+                        <p class="flashcard-front">{{ flashcard.front_text }}</p>
+                        <p class="flashcard-back" style="display: none;">{{ flashcard.back_text }}</p>
+                    </li>
+                {% empty %}
+                    <li>No flashcards for this topic yet.</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>No topics have been added yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'studify:new_flashcard' %}">Add a new flashcard</a>  <!-- Link to add a new flashcard -->
+
+<script>
+    // Add event listener to each topic name
+    document.querySelectorAll('.topic-name').forEach(topicName => {
+        topicName.addEventListener('click', function() {
+            const flashcards = this.nextElementSibling;
+            flashcards.style.display = (flashcards.style.display === 'none') ? 'block' : 'none';
+        });
+    });
+
+    // Add event listener to each flashcard front text
+    document.querySelectorAll('.flashcard-front').forEach(front => {
+        front.addEventListener('click', function() {
+            const back = this.nextElementSibling;
+            back.style.display = (back.style.display === 'none') ? 'block' : 'none';
+        });
+    });
+
+    // Add event listener to each flashcard back text
+    document.querySelectorAll('.flashcard-back').forEach(back => {
+        back.addEventListener('click', function() {
+            this.style.display = 'none';
+        });
+    });
+</script>
+
+{% endblock content %}

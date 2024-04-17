@@ -1,0 +1,23 @@
+{% extends "studify/base.html" %}
+
+{% block content %}
+    <p>Topic: {{ topic.title }}</p>
+    <p>
+      <a href="{% url 'studify:new_topic' %}" class="btn btn-primary">Add New Topic</a> 
+    <p>
+        
+    <p>Flashcards:</p>
+
+    <ul>
+        {% for flashcard in flashcards %}
+            <li>
+                <p>Front: {{ flashcard.front_text }}</p>
+                <p>Back: {{ flashcard.back_text }}</p>
+            </li>
+        {% empty %}
+            <li>No flashcards for this topic yet.</li>
+        {% endfor %}
+    </ul>
+
+    
+{% endblock content %}

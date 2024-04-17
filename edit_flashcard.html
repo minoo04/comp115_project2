@@ -1,0 +1,9 @@
+{% extends "studify/base.html" %}
+{% block content %}
+  <h2>Edit Flashcard</h2>
+  <form action="{% url 'studify:edit_flashcard' flashcard_id=flashcard.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+{% endblock %}

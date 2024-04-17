@@ -1,0 +1,25 @@
+{% extends "studify/base.html" %}
+
+{% block content %}
+    <p>Add a new flashcard:</p>
+    <form action="{% url 'studify:new_flashcard' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_front_text">Front Text:</label>
+            {{ form.front_text }}
+        </div>
+        <div>
+            <label for="id_back_text">Back Text:</label>
+            {{ form.back_text }}
+        </div>
+        <div>
+            <label for="id_topic">Topic:</label>
+            <select name="topic" id="id_topic">
+                {% for topic in topics %}
+                    <option value="{{ topic.id }}">{{ topic.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">Add flashcard</button>
+    </form>
+{% endblock content %}
